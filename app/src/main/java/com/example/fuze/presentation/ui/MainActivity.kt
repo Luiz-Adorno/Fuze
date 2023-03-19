@@ -16,6 +16,7 @@ import com.example.fuze.databinding.ActivityMainBinding
 import com.example.fuze.presentation.adapter.HomeAdapter
 import com.example.fuze.presentation.adapter.LoadMoreAdapter
 import com.example.fuze.presentation.viewmodel.HomeViewModel
+import com.example.fuze.util.Navigator
 import com.example.fuze.util.initRecycler
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -25,8 +26,12 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
+
     @Inject
     lateinit var homeAdapter: HomeAdapter
+
+    @Inject
+    lateinit var navigator: Navigator
     private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,16 +43,25 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
 
-            viewModel.newsList.collect{
+            viewModel.newsList.collect {
                 homeAdapter.submitData(it)
             }
         }
 
         homeAdapter.setOnItemClickListener {
-            if(it.opponents.size == 2){
-                startActivity(Intent(this,MatchDetailActivity::class.java))
+            if (it.opponents.size == 2) {
+                val toolbarTitle = "${it.league.name} ${it.league.id}"
+                val teamOne = it.opponents[0].opponent.id
+                val teamTwo = it.opponents[1].opponent.id
+                binding.root.context?.let {
+                    navigator.openDetailsActivity(this, toolbarTitle, teamOne, teamTwo)
+                }
             } else {
-                Toast.makeText(applicationContext, R.string.opponents_not_defined,Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    applicationContext,
+                    R.string.opponents_not_defined,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
         binding.apply {

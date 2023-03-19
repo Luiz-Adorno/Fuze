@@ -1,6 +1,8 @@
 package com.example.fuze.presentation.ui
 
 import android.R
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -17,9 +19,14 @@ class MatchDetailActivity : AppCompatActivity() {
         binding = ActivityMatchDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val toolbarTitle = intent.getStringExtra("toolbarTitle")
+        val teamOne = intent.getStringExtra("teamOne")
+        val teamTwo = intent.getStringExtra("teamTwo")
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-       // supportActionBar.setTitle()
+        toolbarTitle?.let {
+            supportActionBar!!.title = it
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -30,5 +37,9 @@ class MatchDetailActivity : AppCompatActivity() {
             }
         }
         return false
+    }
+
+    companion object {
+        fun newIntent(context: Context) = Intent(context, MatchDetailActivity::class.java)
     }
 }
