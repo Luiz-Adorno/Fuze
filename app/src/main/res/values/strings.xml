@@ -13,4 +13,6 @@
     <string name="canceled">Cancelado</string>
     <string name="ended">Finalizado</string>
     <string name="in_progress">Em progresso</string>
+    <string name="hour">Hoje, 21:00</string>
+
 </resources>
