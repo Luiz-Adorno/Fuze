@@ -1,16 +1,13 @@
 package com.example.fuze.presentation.adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.compose.ui.res.stringResource
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.size.Scale
-import coil.transform.CircleCropTransformation
 import com.example.fuze.R
 import com.example.fuze.databinding.HomeItemAdpterBinding
 import com.example.fuze.network.model.MatchesResponse
@@ -118,13 +115,11 @@ class HomeAdapter @Inject constructor() :
                         } ?: run {
                             secondOpponent.load(R.drawable.team_logo) {
                                 placeholder(R.drawable.team_logo)
-                                transformations(CircleCropTransformation())
                             }
                         }
                     } else {
                         secondOpponent.load(R.drawable.team_logo) {
                             placeholder(R.drawable.team_logo)
-                            transformations(CircleCropTransformation())
                         }
                     }
 
@@ -141,11 +136,9 @@ class HomeAdapter @Inject constructor() :
                 } else {
                     firstOpponent.load(R.drawable.team_logo) {
                         placeholder(R.drawable.team_logo)
-                        transformations(CircleCropTransformation())
                     }
                     secondOpponent.load(R.drawable.team_logo) {
                         placeholder(R.drawable.team_logo)
-                        transformations(CircleCropTransformation())
                     }
                 }
 

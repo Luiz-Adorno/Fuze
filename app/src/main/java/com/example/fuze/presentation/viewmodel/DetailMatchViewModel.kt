@@ -14,11 +14,17 @@ class DetailMatchViewModel @Inject constructor(
     private val teamRepository: TeamRepository
 ) : ViewModel() {
 
-    var team: MutableLiveData<TeamResponse>? = MutableLiveData()
+    var teamOne: MutableLiveData<TeamResponse>? = MutableLiveData()
+    var teamTwo: MutableLiveData<TeamResponse>? = MutableLiveData()
 
-    fun getTeamData(id: Int){
+    fun getTeamOneData(id: Int){
         viewModelScope.launch {
-            team?.value = teamRepository.getTeam(id)
+            teamOne?.value = teamRepository.getTeam(id)
+        }
+    }
+    fun getTeamTwoData(id: Int){
+        viewModelScope.launch {
+            teamTwo?.value = teamRepository.getTeam(id)
         }
     }
 

@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import coil.load
 import com.example.fuze.databinding.ActivityMatchDetailBinding
 import com.example.fuze.presentation.viewmodel.DetailMatchViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,8 +29,8 @@ class MatchDetailActivity : AppCompatActivity() {
         val toolbarTitle = intent.getStringExtra("toolbarTitle")
         val teamOne = intent.getIntExtra("teamOne", 0)
         val teamTwo = intent.getIntExtra("teamTwo", 0)
-        viewModel.getTeamData(teamOne)
-        viewModel.getTeamData(teamTwo)
+        viewModel.getTeamOneData(teamOne)
+        viewModel.getTeamTwoData(teamTwo)
         getTeamsDetails()
 
         setSupportActionBar(binding.toolbar)
@@ -39,12 +40,36 @@ class MatchDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun getTeamsDetails(){
+    private fun getTeamsDetails() {
         lifecycleScope.launch {
-            viewModel.team?.observe(this@MatchDetailActivity, Observer {
-
+            viewModel.teamOne?.observe(this@MatchDetailActivity, Observer { teamOne ->
+                binding.apply {
+                    firstOpponentName.text = teamOne.name
+                    teamOne.image_url?.let { url ->
+                        firstOpponent.load(url){
+                            placeholder(com.example.fuze.R.drawable.team_logo)
+                        }
+                    } ?: run {
+                        firstOpponent.load(com.example.fuze.R.drawable.team_logo){
+                            placeholder(com.example.fuze.R.drawable.team_logo)
+                        }
+                    }
                 }
-            )
+            })
+            viewModel.teamTwo?.observe(this@MatchDetailActivity, Observer { teamTwo ->
+                binding.apply {
+                    secondOpponentName.text = teamTwo.name
+                    teamTwo.image_url?.let { url ->
+                        secondOpponent.load(url){
+                            placeholder(com.example.fuze.R.drawable.team_logo)
+                        }
+                    } ?: run {
+                        secondOpponent.load(com.example.fuze.R.drawable.team_logo){
+                            placeholder(com.example.fuze.R.drawable.team_logo)
+                        }
+                    }
+                }
+            })
         }
     }
 
