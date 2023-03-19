@@ -16,6 +16,10 @@
         android:theme="@style/Theme.StartSplashFuze"
         tools:targetApi="31">
         <activity
+            android:name=".presentation.ui.MatchDetailActivity"
+            android:theme="@style/Theme.Fuze"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.MainActivity"
             android:exported="true">
             <intent-filter>

@@ -1,5 +1,6 @@
 package com.example.fuze.presentation.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         homeAdapter.setOnItemClickListener {
             if(it.opponents.size == 2){
-
+                startActivity(Intent(this,MatchDetailActivity::class.java))
             } else {
                 Toast.makeText(applicationContext, R.string.opponents_not_defined,Toast.LENGTH_SHORT).show()
             }
