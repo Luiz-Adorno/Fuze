@@ -1,6 +1,7 @@
 package com.example.fuze.di
 
 import com.example.fuze.network.api.MatchesApi
+import com.example.fuze.network.api.TeamApi
 import com.example.fuze.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -46,6 +47,17 @@ object NetworkModule {
             .client(okHttpClient)
             .build()
             .create(MatchesApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTeamsApi(okHttpClient: OkHttpClient): TeamApi {
+        return Retrofit.Builder()
+            .baseUrl(Constants.TEAMS_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
+            .build()
+            .create(TeamApi::class.java)
     }
 
 }
