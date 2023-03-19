@@ -9,5 +9,6 @@ object Constants {
     const val NOT_STARTED = "not_started"
     const val STARTED = "started"
     const val CANCELED = "canceled"
+    const val FINISHED = "finished"
 
 }

@@ -12,6 +12,7 @@ import com.example.fuze.R
 import com.example.fuze.databinding.HomeItemAdpterBinding
 import com.example.fuze.network.model.MatchesResponse
 import com.example.fuze.util.Constants.CANCELED
+import com.example.fuze.util.Constants.FINISHED
 import com.example.fuze.util.Constants.NOT_STARTED
 import com.example.fuze.util.Constants.STARTED
 import javax.inject.Inject
@@ -19,7 +20,7 @@ import javax.inject.Inject
 class HomeAdapter @Inject constructor() :
     PagingDataAdapter<MatchesResponse, HomeAdapter.MyViewHolder>(differCallback) {
 
-    lateinit var binding: HomeItemAdpterBinding
+    private lateinit var binding: HomeItemAdpterBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -39,58 +40,13 @@ class HomeAdapter @Inject constructor() :
         fun bind(matches: MatchesResponse) {
             binding.apply {
                 textLeagueSerie.text = "${matches.league.name} ${matches.serie_id}"
-                //if game have only one match
-                if (matches.games.size == 1) {
-                    if (!matches.games[0].finished) {
-                        when (matches.games[0].status) {
-                            NOT_STARTED -> hourText.text =
-                                binding.root.resources.getString(R.string.not_started)
-                            CANCELED -> hourText.text =
-                                binding.root.resources.getString(R.string.canceled)
-                            STARTED -> hourText.text =
-                                binding.root.resources.getString(R.string.now_playing)
-                        }
-                    } else {
-                        hourText.text = binding.root.resources.getString(R.string.ended)
-                    }
-                    //if the game have 2 matches
-                } else if (matches.games.size == 2) {
-                    if (!matches.games[0].finished) {
-                        when (matches.games[0].status) {
-                            NOT_STARTED -> hourText.text =
-                                binding.root.resources.getString(R.string.not_started)
-                            CANCELED -> hourText.text =
-                                binding.root.resources.getString(R.string.canceled)
-                            STARTED -> hourText.text =
-                                binding.root.resources.getString(R.string.now_playing)
-                        }
-                    } else {
-                        if (matches.games[1].finished) {
-                            hourText.text = binding.root.resources.getString(R.string.ended)
-                        } else {
-                            hourText.text = binding.root.resources.getString(R.string.now_playing)
-                        }
-
-                    }
-                    //game have 3 matches
-                } else {
-                    if (!matches.games[0].finished) {
-                        when (matches.games[0].status) {
-                            NOT_STARTED -> hourText.text =
-                                binding.root.resources.getString(R.string.not_started)
-                            CANCELED -> hourText.text =
-                                binding.root.resources.getString(R.string.canceled)
-                            STARTED -> hourText.text =
-                                binding.root.resources.getString(R.string.now_playing)
-                        }
-                    } else {
-                        if (matches.games[2].finished) {
-                            hourText.text = binding.root.resources.getString(R.string.ended)
-                        } else {
-                            hourText.text = binding.root.resources.getString(R.string.now_playing)
-                        }
-
-                    }
+                when(matches.status) {
+                    NOT_STARTED -> hourText.text =
+                        binding.root.resources.getString(R.string.not_started)
+                    CANCELED -> hourText.text =
+                        binding.root.resources.getString(R.string.canceled)
+                    STARTED -> hourText.text = binding.root.resources.getString(R.string.now_playing)
+                    FINISHED -> hourText.text = binding.root.resources.getString(R.string.ended)
                 }
 
                 matches.league.image_url?.let {

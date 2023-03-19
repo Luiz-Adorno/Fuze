@@ -3,6 +3,7 @@ package com.example.fuze.network.paging
 import androidx.paging.*
 import com.example.fuze.network.api.MatchesApi
 import com.example.fuze.network.model.MatchesResponse
+import com.example.fuze.util.Constants
 import retrofit2.HttpException
 import javax.inject.Inject
 
@@ -13,7 +14,7 @@ class MatchesRemoteMediator @Inject constructor(
     override suspend fun load(params: PagingSource.LoadParams<Int>): PagingSource.LoadResult<Int, MatchesResponse> {
         return try {
             val currentPage = params.key ?: 1
-            val response = matchesApi.getMatches(currentPage, 10)
+            val response = matchesApi.getMatches(currentPage, 10).sortedBy { it.status == Constants.STARTED }
 
             LoadResult.Page(
                 data = response,
