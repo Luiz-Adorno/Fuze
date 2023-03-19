@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">Fuze</string>
+    <string name="app_name">CSTV</string>
+    <string name="matches">Partidas</string>
+    <string name="vs">vs</string>
+    <string name="league_serie">league + serie</string>
+    <string name="now_playing">AGORA</string>
+    <string name="opp_one">Time 1</string>
+    <string name="opp_sec">Time 2</string>
+    <string name="something_wrong">Oppps! Algo deu errado, tente novamente</string>
+    <string name="retry">Tentar novamente</string>
 </resources>
