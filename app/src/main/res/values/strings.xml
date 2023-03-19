@@ -8,4 +8,9 @@
     <string name="opp_sec">Time 2</string>
     <string name="something_wrong">Oppps! Algo deu errado, tente novamente</string>
     <string name="retry">Tentar novamente</string>
+    <string name="opponents_not_defined">Esta partida ainda não tem todos times definidos!</string>
+    <string name="not_started">Agendado</string>
+    <string name="canceled">Cancelado</string>
+    <string name="ended">Finalizado</string>
+    <string name="in_progress">Em progresso</string>
 </resources>

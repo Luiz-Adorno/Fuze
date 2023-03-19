@@ -3,12 +3,14 @@ package com.example.fuze.presentation.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fuze.R
 import com.example.fuze.databinding.ActivityMainBinding
 import com.example.fuze.presentation.adapter.HomeAdapter
 import com.example.fuze.presentation.adapter.LoadMoreAdapter
@@ -41,7 +43,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         homeAdapter.setOnItemClickListener {
+            if(it.opponents.size == 2){
 
+            } else {
+                Toast.makeText(applicationContext, R.string.opponents_not_defined,Toast.LENGTH_SHORT).show()
+            }
         }
         binding.apply {
 

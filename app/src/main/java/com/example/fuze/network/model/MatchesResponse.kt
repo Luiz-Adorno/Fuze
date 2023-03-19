@@ -7,6 +7,7 @@ data class MatchesResponse(
     val id: Int,
     val league: League,
     val match_type: String,
+    val games: List<Games>,
     val modified_at: String,
     val opponents: List<Opponent>,
     val original_scheduled_at: String,
